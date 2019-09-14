@@ -4,7 +4,7 @@
 [![CircleCI](https://img.shields.io/circleci/project/github/desktop/desktop.svg?style=flat-square&label=CircleCI)](https://circleci.com/gh/desktop/desktop)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/github-windows/desktop/development.svg?style=flat-square&label=AppVeyor&logo=appveyor)](https://ci.appveyor.com/project/github-windows/desktop/branch/development)
 [![Azure DevOps Pipelines Build Status](https://dev.azure.com/github/Desktop/_apis/build/status/Continuous%20Integration)](https://dev.azure.com/github/Desktop/_build/latest?definitionId=3)
-[![license](https://img.shields.io/github/license/desktop/desktop.svg?style=flat-square)](https://github.com/desktop/desktop/blob/development/LICENSE)
+[![license](https://img.shields.io/github/license/desktop/desktop.svg?style=flat-square)](https://github.com/xaxvss/desktop/blob/development/LICENSE)
 ![90+% TypeScript](https://img.shields.io/github/languages/top/desktop/desktop.svg?style=flat-square&colorB=green)
 
 GitHub Desktop is an open source [Electron](https://electron.atom.io)-based
@@ -18,8 +18,8 @@ uses [React](https://facebook.github.io/react/).
 Download the official installer for your operating system:
 
  - [macOS](https://central.github.com/deployments/desktop/desktop/latest/darwin)
- - [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32)
- - [Windows machine-wide install](https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi)
+ - [Windows](https://central.github.com/deployments/xaxvss/desktop/latest/win32)
+ - [Windows machine-wide install](https://central.github.com/deployments/xaxvss/desktop/latest/win32?format=msi)
 
 You can install this alongside your existing GitHub Desktop for Mac or GitHub
 Desktop for Windows application.
@@ -34,7 +34,7 @@ Want to test out new features and get fixes before everyone else? Install the
 beta channel to get access to early builds of Desktop:
 
  - [macOS](https://central.github.com/deployments/desktop/desktop/latest/darwin?env=beta)
- - [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32?env=beta)
+ - [Windows](https://central.github.com/deployments/xaxvss/desktop/latest/win32?env=beta)
 
 ### Community Releases
 
@@ -53,7 +53,7 @@ Arch Linux users can install the latest version from the
 
 ## Is GitHub Desktop right for me? What are the primary areas of focus?
 
-[This document](https://github.com/desktop/desktop/blob/development/docs/process/what-is-desktop.md) describes the focus of GitHub Desktop and who the product is most useful for.
+[This document](https://github.com/xaxvss/desktop/blob/development/docs/process/what-is-desktop.md) describes the focus of GitHub Desktop and who the product is most useful for.
 
 And to see what the team is working on currently and in the near future, check out the [GitHub Desktop roadmap](https://github.com/desktop/desktop/blob/development/docs/process/roadmap.md).
 
@@ -86,7 +86,7 @@ If you're looking for something to work on, check out the [help wanted](https://
 
 ## More Resources
 
-See [desktop.github.com](https://desktop.github.com) for more product-oriented
+See [desktop.github.com](https://xaxvss.github.io/desktop) for more product-oriented
 information about GitHub Desktop.
 
 ## License
