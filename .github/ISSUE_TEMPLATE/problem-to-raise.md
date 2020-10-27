@@ -1,6 +1,9 @@
 ---
 name: "\U0001F389 Problem to raise"
 about: Surface a problem that you think should be solved
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
