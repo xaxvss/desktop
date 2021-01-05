@@ -40,6 +40,21 @@ export function lookupPreferredEmail(
  */
 function isEmailPublic(email: IAPIEmail): boolean {
   // If an email doesn't have a visibility setting it means it's coming from an
-  // older Enterprise server which doesn't have the concept of visiblity.
+  // older Enterprise Server which doesn't have the concept of visiblity.
   return email.visibility === 'public' || !email.visibility
+}
+
+/**
+ * Get the default email address belonging to a user
+ *
+ * @param emails Array of email details returned from GitHub API
+ * @returns the email address from the first element in the array, or an empty
+ *          string if the array is empty
+ */
+export function getDefaultEmail(emails: ReadonlyArray<IAPIEmail>): string {
+  if (emails.length === 0) {
+    return ''
+  }
+
+  return emails[0].email || ''
 }

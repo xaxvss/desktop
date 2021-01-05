@@ -17,6 +17,9 @@ const outputDir = 'out'
 export const replacements = getReplacements()
 
 const commonConfig: webpack.Configuration = {
+  optimization: {
+    noEmitOnErrors: true,
+  },
   externals: externals,
   output: {
     filename: '[name].js',
@@ -53,7 +56,6 @@ const commonConfig: webpack.Configuration = {
     // This saves us a bunch of bytes by pruning locales (which we don't use)
     // from moment.
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.NoEmitOnErrorsPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
@@ -85,6 +87,10 @@ export const renderer = merge({}, commonConfig, {
       {
         test: /\.(jpe?g|png|gif|ico)$/,
         use: ['file?name=[path][name].[ext]'],
+      },
+      {
+        test: /\.cmd$/,
+        loader: 'file-loader',
       },
     ],
   },

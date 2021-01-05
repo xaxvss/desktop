@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Dispatcher } from '../../lib/dispatcher'
+import { Dispatcher } from '../dispatcher'
 
 import { Repository } from '../../models/repository'
 import { Branch } from '../../models/branch'
@@ -33,7 +33,7 @@ export class DeletePullRequest extends React.Component<IDeleteBranchProps, {}> {
           <p>
             If{' '}
             <LinkButton onClick={this.openPullRequest}>
-              #{this.props.pullRequest.number}
+              #{this.props.pullRequest.pullRequestNumber}
             </LinkButton>{' '}
             has been merged, you can also remove the remote branch on GitHub.
           </p>

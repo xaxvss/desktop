@@ -1,49 +1,60 @@
 # Roadmap
 
-The following are our marketing releases, as planned to date (and we plan to revisit 6 months from now). They contain the broad features we're considering. The further away a release is, the less defined it is. Releases are subject to change at any time. This is not written in stone!!!
+The following are the larger areas of upcoming work the GitHub Desktop team intends to explore. This is not inclusive of everything we're working on, and it's not written in stone. We'll continue to update it as our priorities evolve.
 
-## 1.3 - Detecting merge conflicts
+#### Branch list grows with merged & deleted branches making it difficult to find those you care about (in progress)
+
+- Prune branches after they've been deleted: [#750](https://github.com/desktop/desktop/issues/750)
+- Measuring success: N/A for now
+
+#### Users behind corporate proxies cannot clone without manual setup
+
+- Help people get set up correctly if they're behind a proxy: [#2789](https://github.com/desktop/desktop/issues/2789)
+- Measuring success: TBD alongside the work
+
+## Shipped in previous releases
+
+#### Working with uncommitted changes, aka stashing (2.0)
+
+- Improve workflows when you have uncommitted changes: [#6107](https://github.com/desktop/desktop/issues/6107)
+- Measuring success: TBD alongside the work + usability testing
+
+#### Support rebase when pulling (2.0)
+
+- Respect user's git config for pull --rebase and resolve conflicts: [#3422](https://github.com/desktop/desktop/issues/3422)
+- Measuring success: [#6550](https://github.com/desktop/desktop/issues/6550)
+
+#### Support full rebase story, including rebasing one branch onto another locally (2.0)
+
+- Improve rebase workflows: [#5953](https://github.com/desktop/desktop/issues/5953)
+- Measuring success: TBD alongside the work + usability testing
+
+#### Repositories are difficult to find, navigate, and differentiate (2.0)
+
+- Help people navigate between and visually differentiate between repos: [#6460](https://github.com/desktop/desktop/issues/6460)
+- Measuring success: TBD alongside the work + usability testing
+
+#### Onboarding (1.6)
   
-- [Relationship between branches continued](https://github.com/desktop/desktop/issues/2639) - [#2639](https://github.com/desktop/desktop/issues/2639)
-  - Notifications around diverging from master branch
-  - Detect merge conflicts
+- Improve onboarding for new users: [#5686](https://github.com/desktop/desktop/issues/5686)
+- Measuring success: [#5549](https://github.com/desktop/desktop/issues/5549) + usability testing
+
+#### Suggested next steps (1.6)
+
+- Suggest logical next steps based on what state a person's repository is in: [#6445](https://github.com/desktop/desktop/pull/6445)
+- Measuring success: [#6714](https://github.com/desktop/desktop/issues/6714)
+
+#### Merge conflicts iteration (1.6)
+
+- Iterate on initial merge conflicts ship: [#6213](https://github.com/desktop/desktop/issues/6213)
+- Measuring success: [#6388](https://github.com/desktop/desktop/issues/6388)
   
-## 1.4 - New branch, maybe?
+#### Merge conflicts handling (1.5)
 
-- [Move unpublished commits on master to new branch](https://github.com/desktop/desktop/issues/1021) - [#1021](https://github.com/desktop/desktop/issues/1021)
-  - Don't let me commit to branches I shouldn't commit to
-  - Guide me to creating my own branches 
+- Improve how Desktop handles merge conflicts: [#5400](https://github.com/desktop/desktop/issues/5400)
+- Measuring success: [#5394](https://github.com/desktop/desktop/issues/5394)
   
-**Note:** depending on things, this might get combined with 1.5 
-  
-## 1.5 - Better onboarding
+#### Merge workflow iteration (1.5)
 
-- Better onboarding for new users
-
-## 1.6 - Conflict awareness
-
-- [Conflict resolution MVP](https://github.com/desktop/desktop/issues/2640) - [#2640](https://github.com/desktop/desktop/issues/2640)
-  - Differentiate conflicted files from other changed files
-  - Let me choose my mergetool
-  - Let me open my mergetool
-  
-## 1.7 - Conflict resolution
-
-- [Conflict resolution continued](https://github.com/desktop/desktop/issues/2640) - [#2640](https://github.com/desktop/desktop/issues/2640)
-  - Edit inline
-  - Abort merge
-  - How did I get here?
-  - Don't let me commit a file with conflict markers
-  
-## 1.8 - Messaging + Tracking
-  
-- End of Progress & in-app messaging
-  - End of Progress: Providing friendly update when longer running processes are complete
-  - In-app Message: providing success/failure notifications for unclear interactions (ex: login) 
-
-- App interaction tracking
-  - Adding in analytics around features we need data on
-  - (optional) Clarifying what data we collect if people opt-in, potentially adding other opt-in options for different levels of data
-  - (optional) Surfacing data collected back to user 
-
-- [View changes by methods and functions (for supported files)](https://blog.github.com/2017-07-26-quickly-review-changed-methods-and-functions-in-your-pull-requests/)
+- Evaluate and improve merge flow end-to-end: [#5555](https://github.com/desktop/desktop/issues/5555)
+- Usability testing for merging

@@ -14,15 +14,26 @@ import { assertNever } from '../fatal-error'
 
 export enum ExternalEditor {
   Atom = 'Atom',
+  AtomBeta = 'Atom Beta',
+  AtomNightly = 'Atom Nightly',
   VisualStudioCode = 'Visual Studio Code',
   VisualStudioCodeInsiders = 'Visual Studio Code (Insiders)',
   SublimeText = 'Sublime Text',
   CFBuilder = 'ColdFusion Builder',
+  Typora = 'Typora',
+  SlickEdit = 'SlickEdit',
+  Webstorm = 'JetBrains Webstorm',
 }
 
 export function parse(label: string): ExternalEditor | null {
   if (label === ExternalEditor.Atom) {
     return ExternalEditor.Atom
+  }
+  if (label === ExternalEditor.AtomBeta) {
+    return ExternalEditor.AtomBeta
+  }
+  if (label === ExternalEditor.AtomNightly) {
+    return ExternalEditor.AtomNightly
   }
   if (label === ExternalEditor.VisualStudioCode) {
     return ExternalEditor.VisualStudioCode
@@ -35,6 +46,12 @@ export function parse(label: string): ExternalEditor | null {
   }
   if (label === ExternalEditor.CFBuilder) {
     return ExternalEditor.CFBuilder
+  }
+  if (label === ExternalEditor.Typora) {
+    return ExternalEditor.Typora
+  }
+  if (label === ExternalEditor.SlickEdit) {
+    return ExternalEditor.SlickEdit
   }
 
   return null
@@ -60,15 +77,43 @@ function getRegistryKeys(
             'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\atom',
         },
       ]
+    case ExternalEditor.AtomBeta:
+      return [
+        {
+          key: HKEY.HKEY_CURRENT_USER,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\atom-beta',
+        },
+      ]
+    case ExternalEditor.AtomNightly:
+      return [
+        {
+          key: HKEY.HKEY_CURRENT_USER,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\atom-nightly',
+        },
+      ]
     case ExternalEditor.VisualStudioCode:
       return [
-        // 64-bit version of VSCode - not available from home page but just made available
+        // 64-bit version of VSCode (user) - provided by default in 64-bit Windows
+        {
+          key: HKEY.HKEY_CURRENT_USER,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{771FD6B0-FA20-440A-A002-3B3BAC16DC50}_is1',
+        },
+        // 32-bit version of VSCode (user)
+        {
+          key: HKEY.HKEY_CURRENT_USER,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{D628A17A-9713-46BF-8D57-E671B46A741E}_is1',
+        },
+        // 64-bit version of VSCode (system) - was default before user scope installation
         {
           key: HKEY.HKEY_LOCAL_MACHINE,
           subKey:
             'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{EA457B21-F73E-494C-ACAB-524FDE069978}_is1',
         },
-        // 32-bit version of VSCode - what most people will be using for the forseeable future
+        // 32-bit version of VSCode (system)
         {
           key: HKEY.HKEY_LOCAL_MACHINE,
           subKey:
@@ -77,13 +122,25 @@ function getRegistryKeys(
       ]
     case ExternalEditor.VisualStudioCodeInsiders:
       return [
-        // 64-bit version of VSCode - not available from home page but just made available
+        // 64-bit version of VSCode (user) - provided by default in 64-bit Windows
+        {
+          key: HKEY.HKEY_CURRENT_USER,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{217B4C08-948D-4276-BFBB-BEE930AE5A2C}_is1',
+        },
+        // 32-bit version of VSCode (user)
+        {
+          key: HKEY.HKEY_CURRENT_USER,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{26F4A15E-E392-4887-8C09-7BC55712FD5B}_is1',
+        },
+        // 64-bit version of VSCode (system) - was default before user scope installation
         {
           key: HKEY.HKEY_LOCAL_MACHINE,
           subKey:
             'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{1287CAD5-7C8D-410D-88B9-0D1EE4A83FF2}_is1',
         },
-        // 32-bit version of VSCode - what most people will be using for the forseeable future
+        // 32-bit version of VSCode (system)
         {
           key: HKEY.HKEY_LOCAL_MACHINE,
           subKey:
@@ -100,17 +157,110 @@ function getRegistryKeys(
       ]
     case ExternalEditor.CFBuilder:
       return [
-        //64-bit version of ColdFusionBuilder3
+        // 64-bit version of ColdFusionBuilder3
         {
           key: HKEY.HKEY_LOCAL_MACHINE,
           subKey:
             'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Adobe ColdFusion Builder 3_is1',
         },
-        //64-bit version of ColdFusionBuilder2016
+        // 64-bit version of ColdFusionBuilder2016
         {
           key: HKEY.HKEY_LOCAL_MACHINE,
           subKey:
             'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Adobe ColdFusion Builder 2016',
+        },
+      ]
+    case ExternalEditor.Typora:
+      return [
+        // 64-bit version of Typora
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{37771A20-7167-44C0-B322-FD3E54C56156}_is1',
+        },
+        // 32-bit version of Typora
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{37771A20-7167-44C0-B322-FD3E54C56156}_is1',
+        },
+      ]
+    case ExternalEditor.SlickEdit:
+      return [
+        // 64-bit version of SlickEdit Pro 2018
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{18406187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 32-bit version of SlickEdit Pro 2018
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{18006187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Standard 2018
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{18606187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 32-bit version of SlickEdit Standard 2018
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{18206187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Pro 2017
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{15406187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 32-bit version of SlickEdit Pro 2017
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{15006187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Pro 2016 (21.0.1)
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{10C06187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Pro 2016 (21.0.0)
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{10406187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Pro 2015 (20.0.3)
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{0DC06187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Pro 2015 (20.0.2)
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{0D406187-F49E-4822-CAF2-1D25C0C83BA2}',
+        },
+        // 64-bit version of SlickEdit Pro 2014 (19.0.2)
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{7CC0E567-ACD6-41E8-95DA-154CEEDB0A18}',
+        },
+      ]
+    case ExternalEditor.Webstorm:
+      return [
+        // 32-bit version of WebStorm
+        {
+          key: HKEY.HKEY_LOCAL_MACHINE,
+          subKey:
+            'SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\WebStorm 2018.3',
         },
       ]
 
@@ -131,15 +281,25 @@ function getExecutableShim(
 ): string {
   switch (editor) {
     case ExternalEditor.Atom:
-      return Path.join(installLocation, 'bin', 'atom.cmd')
+      return Path.join(installLocation, 'bin', 'atom.cmd') // remember, CMD must 'useShell'
+    case ExternalEditor.AtomBeta:
+      return Path.join(installLocation, 'bin', 'atom-beta.cmd') // remember, CMD must 'useShell'
+    case ExternalEditor.AtomNightly:
+      return Path.join(installLocation, 'bin', 'atom-nightly.cmd') // remember, CMD must 'useShell'
     case ExternalEditor.VisualStudioCode:
-      return Path.join(installLocation, 'bin', 'code.cmd')
+      return Path.join(installLocation, 'bin', 'code.cmd') // remember, CMD must 'useShell'
     case ExternalEditor.VisualStudioCodeInsiders:
-      return Path.join(installLocation, 'bin', 'code-insiders.cmd')
+      return Path.join(installLocation, 'bin', 'code-insiders.cmd') // remember, CMD must 'useShell'
     case ExternalEditor.SublimeText:
       return Path.join(installLocation, 'subl.exe')
     case ExternalEditor.CFBuilder:
       return Path.join(installLocation, 'CFBuilder.exe')
+    case ExternalEditor.Typora:
+      return Path.join(installLocation, 'bin', 'typora.exe')
+    case ExternalEditor.SlickEdit:
+      return Path.join(installLocation, 'win', 'vs.exe')
+    case ExternalEditor.Webstorm:
+      return Path.join(installLocation, 'bin', 'webstorm.exe')
     default:
       return assertNever(editor, `Unknown external editor: ${editor}`)
   }
@@ -160,14 +320,18 @@ function isExpectedInstallation(
   switch (editor) {
     case ExternalEditor.Atom:
       return displayName === 'Atom' && publisher === 'GitHub Inc.'
+    case ExternalEditor.AtomBeta:
+      return displayName === 'Atom Beta' && publisher === 'GitHub Inc.'
+    case ExternalEditor.AtomNightly:
+      return displayName === 'Atom Nightly' && publisher === 'GitHub Inc.'
     case ExternalEditor.VisualStudioCode:
       return (
-        displayName === 'Microsoft Visual Studio Code' &&
+        displayName.startsWith('Microsoft Visual Studio Code') &&
         publisher === 'Microsoft Corporation'
       )
     case ExternalEditor.VisualStudioCodeInsiders:
       return (
-        displayName === 'Microsoft Visual Studio Code Insiders' &&
+        displayName.startsWith('Microsoft Visual Studio Code Insiders') &&
         publisher === 'Microsoft Corporation'
       )
     case ExternalEditor.SublimeText:
@@ -179,6 +343,16 @@ function isExpectedInstallation(
         (displayName === 'Adobe ColdFusion Builder 3' ||
           displayName === 'Adobe ColdFusion Builder 2016') &&
         publisher === 'Adobe Systems Incorporated'
+      )
+    case ExternalEditor.Typora:
+      return displayName.startsWith('Typora') && publisher === 'typora.io'
+    case ExternalEditor.SlickEdit:
+      return (
+        displayName.startsWith('SlickEdit') && publisher === 'SlickEdit Inc.'
+      )
+    case ExternalEditor.Webstorm:
+      return (
+        displayName.startsWith('WebStorm') && publisher === 'JetBrains s.r.o.'
       )
     default:
       return assertNever(editor, `Unknown external editor: ${editor}`)
@@ -204,6 +378,20 @@ function extractApplicationInformation(
   keys: ReadonlyArray<RegistryValue>
 ): { displayName: string; publisher: string; installLocation: string } {
   if (editor === ExternalEditor.Atom) {
+    const displayName = getKeyOrEmpty(keys, 'DisplayName')
+    const publisher = getKeyOrEmpty(keys, 'Publisher')
+    const installLocation = getKeyOrEmpty(keys, 'InstallLocation')
+    return { displayName, publisher, installLocation }
+  }
+
+  if (editor === ExternalEditor.AtomBeta) {
+    const displayName = getKeyOrEmpty(keys, 'DisplayName')
+    const publisher = getKeyOrEmpty(keys, 'Publisher')
+    const installLocation = getKeyOrEmpty(keys, 'InstallLocation')
+    return { displayName, publisher, installLocation }
+  }
+
+  if (editor === ExternalEditor.AtomNightly) {
     const displayName = getKeyOrEmpty(keys, 'DisplayName')
     const publisher = getKeyOrEmpty(keys, 'Publisher')
     const installLocation = getKeyOrEmpty(keys, 'InstallLocation')
@@ -255,6 +443,50 @@ function extractApplicationInformation(
     const displayName = getKeyOrEmpty(keys, 'DisplayName')
     const publisher = getKeyOrEmpty(keys, 'Publisher')
     const installLocation = getKeyOrEmpty(keys, 'InstallLocation')
+    return { displayName, publisher, installLocation }
+  }
+
+  if (editor === ExternalEditor.Typora) {
+    const displayName = getKeyOrEmpty(keys, 'DisplayName')
+    const publisher = getKeyOrEmpty(keys, 'Publisher')
+    const installLocation = getKeyOrEmpty(keys, 'InstallLocation')
+    return { displayName, publisher, installLocation }
+  }
+
+  if (editor === ExternalEditor.SlickEdit) {
+    const displayName = getKeyOrEmpty(keys, 'DisplayName')
+    const publisher = getKeyOrEmpty(keys, 'Publisher')
+    const installLocation = getKeyOrEmpty(keys, 'InstallLocation')
+    return { displayName, publisher, installLocation }
+  }
+
+  if (editor === ExternalEditor.Webstorm) {
+    let displayName = ''
+    let publisher = ''
+    let installLocation = ''
+
+    for (const item of keys) {
+      // NOTE:
+      // Webstorm adds the current release number to the end of the Display Name, below checks for "WebStorm"
+      if (
+        item.name === 'DisplayName' &&
+        item.type === RegistryValueType.REG_SZ &&
+        item.data.startsWith('WebStorm ')
+      ) {
+        displayName = 'WebStorm'
+      } else if (
+        item.name === 'Publisher' &&
+        item.type === RegistryValueType.REG_SZ
+      ) {
+        publisher = item.data
+      } else if (
+        item.name === 'InstallLocation' &&
+        item.type === RegistryValueType.REG_SZ
+      ) {
+        installLocation = item.data
+      }
+    }
+
     return { displayName, publisher, installLocation }
   }
 
@@ -310,22 +542,47 @@ export async function getAvailableEditors(): Promise<
 
   const [
     atomPath,
+    atomBetaPath,
+    atomNightlyPath,
     codePath,
     codeInsidersPath,
     sublimePath,
     cfBuilderPath,
+    typoraPath,
+    slickeditPath,
   ] = await Promise.all([
     findApplication(ExternalEditor.Atom),
+    findApplication(ExternalEditor.AtomBeta),
+    findApplication(ExternalEditor.AtomNightly),
     findApplication(ExternalEditor.VisualStudioCode),
     findApplication(ExternalEditor.VisualStudioCodeInsiders),
     findApplication(ExternalEditor.SublimeText),
     findApplication(ExternalEditor.CFBuilder),
+    findApplication(ExternalEditor.Typora),
+    findApplication(ExternalEditor.SlickEdit),
   ])
 
   if (atomPath) {
     results.push({
       editor: ExternalEditor.Atom,
       path: atomPath,
+      usesShell: true,
+    })
+  }
+
+  if (atomBetaPath) {
+    results.push({
+      editor: ExternalEditor.AtomBeta,
+      path: atomBetaPath,
+      usesShell: true,
+    })
+  }
+
+  if (atomNightlyPath) {
+    results.push({
+      editor: ExternalEditor.AtomNightly,
+      path: atomNightlyPath,
+      usesShell: true,
     })
   }
 
@@ -333,6 +590,7 @@ export async function getAvailableEditors(): Promise<
     results.push({
       editor: ExternalEditor.VisualStudioCode,
       path: codePath,
+      usesShell: true,
     })
   }
 
@@ -340,6 +598,7 @@ export async function getAvailableEditors(): Promise<
     results.push({
       editor: ExternalEditor.VisualStudioCodeInsiders,
       path: codeInsidersPath,
+      usesShell: true,
     })
   }
 
@@ -347,6 +606,7 @@ export async function getAvailableEditors(): Promise<
     results.push({
       editor: ExternalEditor.SublimeText,
       path: sublimePath,
+      usesShell: false,
     })
   }
 
@@ -354,6 +614,22 @@ export async function getAvailableEditors(): Promise<
     results.push({
       editor: ExternalEditor.CFBuilder,
       path: cfBuilderPath,
+      usesShell: false,
+    })
+  }
+
+  if (typoraPath) {
+    results.push({
+      editor: ExternalEditor.Typora,
+      path: typoraPath,
+      usesShell: false,
+    })
+  }
+
+  if (slickeditPath) {
+    results.push({
+      editor: ExternalEditor.SlickEdit,
+      path: slickeditPath,
     })
   }
 
